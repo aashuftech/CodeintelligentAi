@@ -61,7 +61,7 @@ export default function RegisterPage() {
     <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center p-4 sm:p-6">
       <Card className="w-full max-w-md border-slate-800 bg-slate-900/90 shadow-2xl p-2 sm:p-3">
         <CardHeader className="text-center pb-6">
-          <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-tr from-indigo-600 to-purple-600 text-white shadow-lg shadow-indigo-500/20">
+          <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 shadow-lg shadow-indigo-500/20">
             <Terminal className="h-7 w-7" />
           </div>
           <CardTitle className="text-2xl font-extrabold text-white">Create Your Account</CardTitle>

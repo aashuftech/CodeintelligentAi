@@ -20,11 +20,9 @@ import {
   CheckCircle2,
   XCircle,
   AlertTriangle,
-  ArrowRight,
   RotateCcw,
   LayoutDashboard,
   Check,
-  Layers,
 } from "lucide-react";
 
 export default function InterviewReportPage({
@@ -61,9 +59,9 @@ export default function InterviewReportPage({
   if (isLoading) {
     return (
       <div className="flex min-h-[70vh] items-center justify-center">
-        <div className="flex items-center gap-3 text-slate-300 text-base">
-          <div className="h-6 w-6 rounded-full border-2 border-indigo-500 border-t-transparent animate-spin" />
-          <span>Generating multi-dimensional evaluation report...</span>
+        <div className="flex items-center gap-3 text-slate-300 text-sm sm:text-base">
+          <div className="h-5 w-5 sm:h-6 sm:w-6 rounded-full border-2 border-indigo-500 border-t-transparent animate-spin" />
+          <span>Generating evaluation scorecard...</span>
         </div>
       </div>
     );
@@ -72,18 +70,22 @@ export default function InterviewReportPage({
   if (error || !data?.evaluation) {
     return (
       <div className="flex min-h-[70vh] items-center justify-center p-4">
-        <div className="rounded-3xl border border-slate-800 bg-slate-900 p-8 text-center max-w-md space-y-4 shadow-2xl">
-          <AlertTriangle className="h-12 w-12 text-amber-400 mx-auto" />
-          <h2 className="text-xl font-bold text-white">Evaluation Report Pending</h2>
-          <p className="text-sm text-slate-300 leading-relaxed">
+        <div className="rounded-2xl border border-slate-800/80 bg-slate-900/80 p-6 sm:p-8 text-center max-w-md space-y-4 shadow-xl">
+          <AlertTriangle className="h-10 w-10 text-amber-400 mx-auto" />
+          <h2 className="text-lg sm:text-xl font-bold text-white">Evaluation Report Pending</h2>
+          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
             This interview session is still in progress or has not been evaluated yet.
           </p>
-          <div className="flex items-center justify-center gap-3 pt-2">
+          <div className="flex items-center justify-center gap-2.5 pt-2">
             <Link href={`/interview/${id}`}>
-              <Button variant="primary" size="sm">Resume Interview</Button>
+              <Button variant="primary" size="sm" className="text-xs sm:text-sm font-bold bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl">
+                Resume Interview
+              </Button>
             </Link>
             <Link href="/dashboard">
-              <Button variant="outline" size="sm">Dashboard</Button>
+              <Button variant="outline" size="sm" className="text-xs sm:text-sm font-semibold border-slate-800 bg-slate-900/50">
+                Dashboard
+              </Button>
             </Link>
           </div>
         </div>
@@ -91,7 +93,7 @@ export default function InterviewReportPage({
     );
   }
 
-  const { interview, evaluation, submissions } = data;
+  const { interview, evaluation } = data;
   const problem = interview.problemId;
   const metrics = evaluation.metrics;
   const overallScore = evaluation.overallScore || 0;
@@ -106,23 +108,23 @@ export default function InterviewReportPage({
       : "text-rose-400";
 
   return (
-    <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-10 space-y-10">
+    <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-8 sm:py-10 space-y-8 sm:space-y-10">
       {/* Top Breadcrumb & Controls */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-5">
-        <div className="flex items-center gap-2 text-sm text-slate-400">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 border-b border-slate-800/80 pb-4 sm:pb-5">
+        <div className="flex items-center gap-2 text-xs sm:text-sm text-slate-400">
           <Link href="/dashboard" className="hover:text-white transition-colors">Dashboard</Link>
           <span>/</span>
-          <span className="text-white font-semibold">Interview Evaluation Report</span>
+          <span className="text-white font-semibold">Evaluation Report</span>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2.5">
           <Link href="/dashboard">
-            <Button variant="outline" size="sm" className="gap-2 text-sm font-semibold px-4 py-2">
-              <LayoutDashboard className="h-4 w-4" /> Dashboard
+            <Button variant="outline" size="sm" className="gap-2 text-xs sm:text-sm font-semibold px-3 sm:px-4 py-1.5 sm:py-2 border-slate-800 bg-slate-900/50 hover:bg-slate-800 text-slate-200">
+              <LayoutDashboard className="h-4 w-4 text-slate-400" /> Dashboard
             </Button>
           </Link>
           <Link href="/interview/setup">
-            <Button variant="primary" size="sm" className="gap-2 text-sm font-semibold px-4 py-2 shadow-indigo-600/30">
+            <Button variant="primary" size="sm" className="gap-2 text-xs sm:text-sm font-bold px-3 sm:px-4 py-1.5 sm:py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl shadow-md shadow-indigo-600/25">
               <RotateCcw className="h-4 w-4" /> Practice Another
             </Button>
           </Link>
@@ -130,37 +132,37 @@ export default function InterviewReportPage({
       </div>
 
       {/* Hero Score Header Card */}
-      <Card className="border-indigo-500/30 bg-gradient-to-br from-indigo-950/40 via-slate-900/90 to-slate-950 p-6 sm:p-9 shadow-2xl">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
-          <div className="space-y-4">
-            <div className="flex flex-wrap items-center gap-2.5">
-              <Badge variant="indigo" className="text-xs sm:text-sm px-3 py-1 font-bold">{interview.jobRole}</Badge>
-              <Badge variant="secondary" className="capitalize text-xs sm:text-sm px-3 py-1 font-bold">{interview.experienceLevel} Level</Badge>
-              <span className="rounded-lg border border-slate-700 bg-slate-800/80 px-2.5 py-1 text-xs font-mono font-bold text-slate-200">
+      <Card className="border-slate-800/80 bg-slate-900/60 p-5 sm:p-8 shadow-xl">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 sm:gap-8">
+          <div className="space-y-3 sm:space-y-4">
+            <div className="flex flex-wrap items-center gap-2">
+              <Badge variant="indigo" className="text-xs px-2.5 py-0.5 font-semibold">{interview.jobRole}</Badge>
+              <Badge variant="secondary" className="capitalize text-xs px-2.5 py-0.5 font-semibold">{interview.experienceLevel} Level</Badge>
+              <span className="rounded-lg border border-slate-800 bg-slate-950 px-2.5 py-0.5 text-xs font-mono font-bold text-slate-300">
                 {interview.language.toUpperCase()}
               </span>
             </div>
 
-            <h1 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
+            <h1 className="text-xl sm:text-3xl font-extrabold text-white tracking-tight">
               Evaluation: {problem?.title || "Coding Challenge"}
             </h1>
 
-            <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-sm text-slate-300 font-sans">
-              <span>Conducted: <strong className="text-white">{formatDate(interview.startedAt)}</strong></span>
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs sm:text-sm text-slate-400 font-sans">
+              <span>Conducted: <strong className="text-slate-200">{formatDate(interview.startedAt)}</strong></span>
               <span>•</span>
-              <span>Duration: <strong className="text-white">{formatDuration(interview.durationSeconds || 0)}</strong></span>
+              <span>Duration: <strong className="text-slate-200">{formatDuration(interview.durationSeconds || 0)}</strong></span>
               <span>•</span>
-              <span>Tests: <strong className="text-emerald-400">{evaluation.passedTests}/{evaluation.totalTests} Passed</strong></span>
+              <span>Tests: <strong className="text-emerald-400 font-mono">{evaluation.passedTests}/{evaluation.totalTests} Passed</strong></span>
             </div>
           </div>
 
           {/* Large Overall Score Circle */}
-          <div className="flex flex-col items-center justify-center rounded-3xl border border-slate-800 bg-slate-950/90 p-7 min-w-[200px] shadow-2xl text-center">
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Overall Score</span>
-            <div className={`text-6xl font-black font-mono my-2 ${scoreColor}`}>
+          <div className="flex flex-col items-center justify-center rounded-2xl border border-slate-800 bg-slate-950/80 p-5 sm:p-6 min-w-[170px] shadow-lg text-center shrink-0">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Overall Score</span>
+            <div className={`text-4.5xl sm:text-5.5xl font-black font-mono my-1 ${scoreColor}`}>
               {overallScore}
             </div>
-            <span className="text-sm text-slate-300 font-semibold">
+            <span className="text-xs text-slate-300 font-medium">
               {overallScore >= 85
                 ? "Strong Hire Candidate"
                 : overallScore >= 70
@@ -172,138 +174,138 @@ export default function InterviewReportPage({
       </Card>
 
       {/* 6-Dimensional Metric Breakdown Matrix */}
-      <div className="space-y-5">
-        <h2 className="text-xl font-bold text-white flex items-center gap-2.5">
-          <Award className="h-6 w-6 text-indigo-400" />
+      <div className="space-y-4 sm:space-y-5">
+        <h2 className="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
+          <Award className="h-5 w-5 text-indigo-400" />
           Competency Evaluation Rubric
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
           {/* 1. Test Correctness */}
-          <Card className="border-slate-800 bg-slate-950/70 p-1 shadow-lg">
-            <CardHeader className="pb-3">
+          <Card className="border-slate-800/80 bg-slate-900/60 p-1 shadow-lg">
+            <CardHeader className="pb-2.5">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-base font-bold text-white flex items-center gap-2">
-                  <CheckCircle2 className="h-5 w-5 text-emerald-400" />
+                <CardTitle className="text-sm sm:text-base font-bold text-white flex items-center gap-2">
+                  <CheckCircle2 className="h-4 w-4 text-emerald-400" />
                   Test Correctness
                 </CardTitle>
-                <span className="font-mono font-bold text-sm text-emerald-400">
+                <span className="font-mono font-bold text-xs sm:text-sm text-emerald-400">
                   {metrics.testCorrectness?.score ?? 0}/100
                 </span>
               </div>
             </CardHeader>
-            <CardContent className="space-y-3">
-              <ProgressBar value={metrics.testCorrectness?.score ?? 0} color="emerald" />
-              <p className="text-slate-300 leading-relaxed text-sm">
+            <CardContent className="space-y-2.5">
+              <ProgressBar value={metrics.testCorrectness?.score ?? 0} color="emerald" className="h-2" />
+              <p className="text-slate-300 leading-relaxed text-xs sm:text-sm">
                 {metrics.testCorrectness?.feedback}
               </p>
             </CardContent>
           </Card>
 
           {/* 2. Code Quality */}
-          <Card className="border-slate-800 bg-slate-950/70 p-1 shadow-lg">
-            <CardHeader className="pb-3">
+          <Card className="border-slate-800/80 bg-slate-900/60 p-1 shadow-lg">
+            <CardHeader className="pb-2.5">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-base font-bold text-white flex items-center gap-2">
-                  <Code className="h-5 w-5 text-indigo-400" />
+                <CardTitle className="text-sm sm:text-base font-bold text-white flex items-center gap-2">
+                  <Code className="h-4 w-4 text-indigo-400" />
                   Code Quality & Cleanliness
                 </CardTitle>
-                <span className="font-mono font-bold text-sm text-indigo-400">
+                <span className="font-mono font-bold text-xs sm:text-sm text-indigo-400">
                   {metrics.codeQuality?.score ?? 0}/100
                 </span>
               </div>
             </CardHeader>
-            <CardContent className="space-y-3">
-              <ProgressBar value={metrics.codeQuality?.score ?? 0} color="indigo" />
-              <p className="text-slate-300 leading-relaxed text-sm">
+            <CardContent className="space-y-2.5">
+              <ProgressBar value={metrics.codeQuality?.score ?? 0} color="indigo" className="h-2" />
+              <p className="text-slate-300 leading-relaxed text-xs sm:text-sm">
                 {metrics.codeQuality?.feedback}
               </p>
             </CardContent>
           </Card>
 
           {/* 3. Algorithmic Efficiency */}
-          <Card className="border-slate-800 bg-slate-950/70 p-1 shadow-lg">
-            <CardHeader className="pb-3">
+          <Card className="border-slate-800/80 bg-slate-900/60 p-1 shadow-lg">
+            <CardHeader className="pb-2.5">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-base font-bold text-white flex items-center gap-2">
-                  <Zap className="h-5 w-5 text-amber-400" />
+                <CardTitle className="text-sm sm:text-base font-bold text-white flex items-center gap-2">
+                  <Zap className="h-4 w-4 text-amber-400" />
                   Algorithmic Efficiency
                 </CardTitle>
-                <span className="font-mono font-bold text-sm text-amber-400">
+                <span className="font-mono font-bold text-xs sm:text-sm text-amber-400">
                   {metrics.algorithmicEfficiency?.score ?? 0}/100
                 </span>
               </div>
             </CardHeader>
-            <CardContent className="space-y-3">
-              <ProgressBar value={metrics.algorithmicEfficiency?.score ?? 0} color="amber" />
-              <div className="flex items-center justify-between text-xs sm:text-sm font-mono text-slate-200 pt-1">
-                <span>Time: <strong>{metrics.algorithmicEfficiency?.detectedTimeComplexity || "O(N)"}</strong></span>
-                <span>Space: <strong>{metrics.algorithmicEfficiency?.detectedSpaceComplexity || "O(1)"}</strong></span>
+            <CardContent className="space-y-2.5">
+              <ProgressBar value={metrics.algorithmicEfficiency?.score ?? 0} color="amber" className="h-2" />
+              <div className="flex items-center justify-between text-xs font-mono text-slate-300 pt-0.5">
+                <span>Time: <strong className="text-white">{metrics.algorithmicEfficiency?.detectedTimeComplexity || "O(N)"}</strong></span>
+                <span>Space: <strong className="text-white">{metrics.algorithmicEfficiency?.detectedSpaceComplexity || "O(1)"}</strong></span>
               </div>
-              <p className="text-slate-300 leading-relaxed text-sm">
+              <p className="text-slate-300 leading-relaxed text-xs sm:text-sm">
                 {metrics.algorithmicEfficiency?.feedback}
               </p>
             </CardContent>
           </Card>
 
           {/* 4. Edge Cases */}
-          <Card className="border-slate-800 bg-slate-950/70 p-1 shadow-lg">
-            <CardHeader className="pb-3">
+          <Card className="border-slate-800/80 bg-slate-900/60 p-1 shadow-lg">
+            <CardHeader className="pb-2.5">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-base font-bold text-white flex items-center gap-2">
-                  <ShieldCheck className="h-5 w-5 text-cyan-400" />
+                <CardTitle className="text-sm sm:text-base font-bold text-white flex items-center gap-2">
+                  <ShieldCheck className="h-4 w-4 text-sky-400" />
                   Edge Case Handling
                 </CardTitle>
-                <span className="font-mono font-bold text-sm text-cyan-400">
+                <span className="font-mono font-bold text-xs sm:text-sm text-sky-400">
                   {metrics.edgeCases?.score ?? 0}/100
                 </span>
               </div>
             </CardHeader>
-            <CardContent className="space-y-3">
-              <ProgressBar value={metrics.edgeCases?.score ?? 0} color="indigo" />
-              <p className="text-slate-300 leading-relaxed text-sm">
+            <CardContent className="space-y-2.5">
+              <ProgressBar value={metrics.edgeCases?.score ?? 0} color="indigo" className="h-2" />
+              <p className="text-slate-300 leading-relaxed text-xs sm:text-sm">
                 {metrics.edgeCases?.feedback}
               </p>
             </CardContent>
           </Card>
 
           {/* 5. Problem Solving */}
-          <Card className="border-slate-800 bg-slate-950/70 p-1 shadow-lg">
-            <CardHeader className="pb-3">
+          <Card className="border-slate-800/80 bg-slate-900/60 p-1 shadow-lg">
+            <CardHeader className="pb-2.5">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-base font-bold text-white flex items-center gap-2">
-                  <TrendingUp className="h-5 w-5 text-purple-400" />
+                <CardTitle className="text-sm sm:text-base font-bold text-white flex items-center gap-2">
+                  <TrendingUp className="h-4 w-4 text-indigo-400" />
                   Problem Solving Approach
                 </CardTitle>
-                <span className="font-mono font-bold text-sm text-purple-400">
+                <span className="font-mono font-bold text-xs sm:text-sm text-indigo-400">
                   {metrics.problemSolving?.score ?? 0}/100
                 </span>
               </div>
             </CardHeader>
-            <CardContent className="space-y-3">
-              <ProgressBar value={metrics.problemSolving?.score ?? 0} color="indigo" />
-              <p className="text-slate-300 leading-relaxed text-sm">
+            <CardContent className="space-y-2.5">
+              <ProgressBar value={metrics.problemSolving?.score ?? 0} color="indigo" className="h-2" />
+              <p className="text-slate-300 leading-relaxed text-xs sm:text-sm">
                 {metrics.problemSolving?.feedback}
               </p>
             </CardContent>
           </Card>
 
           {/* 6. Communication */}
-          <Card className="border-slate-800 bg-slate-950/70 p-1 shadow-lg">
-            <CardHeader className="pb-3">
+          <Card className="border-slate-800/80 bg-slate-900/60 p-1 shadow-lg">
+            <CardHeader className="pb-2.5">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-base font-bold text-white flex items-center gap-2">
-                  <MessageSquare className="h-5 w-5 text-blue-400" />
+                <CardTitle className="text-sm sm:text-base font-bold text-white flex items-center gap-2">
+                  <MessageSquare className="h-4 w-4 text-sky-400" />
                   Technical Communication
                 </CardTitle>
-                <span className="font-mono font-bold text-sm text-blue-400">
+                <span className="font-mono font-bold text-xs sm:text-sm text-sky-400">
                   {metrics.communication?.score ?? 0}/100
                 </span>
               </div>
             </CardHeader>
-            <CardContent className="space-y-3">
-              <ProgressBar value={metrics.communication?.score ?? 0} color="indigo" />
-              <p className="text-slate-300 leading-relaxed text-sm">
+            <CardContent className="space-y-2.5">
+              <ProgressBar value={metrics.communication?.score ?? 0} color="indigo" className="h-2" />
+              <p className="text-slate-300 leading-relaxed text-xs sm:text-sm">
                 {metrics.communication?.feedback}
               </p>
             </CardContent>
@@ -311,36 +313,42 @@ export default function InterviewReportPage({
         </div>
       </div>
 
-      {/* Strengths & Growth Areas Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Actionable Feedback: Strengths vs Areas for Improvement */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
         {/* Strengths */}
-        <Card className="border-emerald-500/30 bg-emerald-950/15 p-1 shadow-lg">
+        <Card className="border-emerald-500/20 bg-slate-900/60 p-2 shadow-lg">
           <CardHeader className="pb-3">
-            <CardTitle className="text-base font-bold text-emerald-400 flex items-center gap-2">
-              <CheckCircle2 className="h-5 w-5" /> Key Strengths Observed
+            <CardTitle className="text-base sm:text-lg font-bold text-emerald-400 flex items-center gap-2">
+              <CheckCircle2 className="h-5 w-5" />
+              Candidate Strengths
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-2.5 text-sm text-slate-200">
+          <CardContent className="space-y-2.5 pt-1">
             {evaluation.strengths?.map((str: string, idx: number) => (
-              <div key={idx} className="flex items-start gap-2.5">
-                <span className="h-2 w-2 rounded-full bg-emerald-400 mt-1.5 shrink-0" />
+              <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-200">
+                <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-400 mt-0.5">
+                  <Check className="h-3 w-3" />
+                </div>
                 <span className="leading-relaxed">{str}</span>
               </div>
             ))}
           </CardContent>
         </Card>
 
-        {/* Growth Areas */}
-        <Card className="border-amber-500/30 bg-amber-950/15 p-1 shadow-lg">
+        {/* Areas for Improvement */}
+        <Card className="border-amber-500/20 bg-slate-900/60 p-2 shadow-lg">
           <CardHeader className="pb-3">
-            <CardTitle className="text-base font-bold text-amber-400 flex items-center gap-2">
-              <AlertTriangle className="h-5 w-5" /> Areas for Improvement
+            <CardTitle className="text-base sm:text-lg font-bold text-amber-400 flex items-center gap-2">
+              <AlertTriangle className="h-5 w-5" />
+              Areas for Improvement
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-2.5 text-sm text-slate-200">
+          <CardContent className="space-y-2.5 pt-1">
             {evaluation.weaknesses?.map((wk: string, idx: number) => (
-              <div key={idx} className="flex items-start gap-2.5">
-                <span className="h-2 w-2 rounded-full bg-amber-400 mt-1.5 shrink-0" />
+              <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-200">
+                <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-amber-500/20 text-amber-400 mt-0.5">
+                  <span className="text-xs font-bold font-mono">•</span>
+                </div>
                 <span className="leading-relaxed">{wk}</span>
               </div>
             ))}
@@ -348,75 +356,46 @@ export default function InterviewReportPage({
         </Card>
       </div>
 
-      {/* Actionable Suggestions & Recommended Topics */}
-      <Card className="border-slate-800 bg-slate-900/60 p-2 shadow-xl">
-        <CardHeader className="pb-3">
-          <CardTitle className="text-lg font-bold flex items-center gap-2.5 text-white">
-            <Sparkles className="h-5 w-5 text-amber-400" />
-            Actionable Next Steps & Study Roadmap
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-5 text-sm">
-          {evaluation.actionableSuggestions && evaluation.actionableSuggestions.length > 0 && (
-            <div className="space-y-2">
-              <span className="font-bold text-slate-200 text-sm">Targeted Feedback:</span>
-              <ul className="list-disc list-inside space-y-1.5 text-slate-300 leading-relaxed">
-                {evaluation.actionableSuggestions.map((sug: string, idx: number) => (
-                  <li key={idx}>{sug}</li>
-                ))}
-              </ul>
-            </div>
-          )}
+      {/* Code Comparison Section: Candidate vs Optimal Solution */}
+      <div className="space-y-4">
+        <h2 className="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
+          <Code className="h-5 w-5 text-indigo-400" />
+          Code Solution Review
+        </h2>
 
-          {evaluation.recommendedTopics && evaluation.recommendedTopics.length > 0 && (
-            <div className="pt-3 border-t border-slate-800/80">
-              <span className="font-bold text-slate-200 block mb-3 text-sm">Recommended Study Topics:</span>
-              <div className="flex flex-wrap gap-2.5">
-                {evaluation.recommendedTopics.map((topic: string, idx: number) => (
-                  <span
-                    key={idx}
-                    className="rounded-xl border border-indigo-500/30 bg-indigo-500/15 px-4 py-1.5 text-sm font-bold text-indigo-300 shadow-sm"
-                  >
-                    {topic}
-                  </span>
-                ))}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5">
+          {/* Candidate Code */}
+          <Card className="border-slate-800/80 bg-slate-950 p-2 shadow-lg">
+            <CardHeader className="pb-2">
+              <div className="flex items-center justify-between">
+                <span className="text-xs sm:text-sm font-bold text-slate-200">Candidate Submission</span>
+                <span className="text-xs font-mono text-slate-400 uppercase">{interview.language}</span>
               </div>
-            </div>
-          )}
-        </CardContent>
-      </Card>
+            </CardHeader>
+            <CardContent>
+              <pre className="rounded-xl border border-slate-800 bg-slate-900/90 p-4 font-mono text-xs text-slate-200 overflow-x-auto leading-relaxed max-h-[400px]">
+                {interview.currentCode || "// No code submitted"}
+              </pre>
+            </CardContent>
+          </Card>
 
-      {/* Submitted Code vs Optimal Reference Snippet */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Candidate Submitted Code */}
-        <Card className="border-slate-800 bg-slate-950 shadow-xl">
-          <CardHeader className="pb-3">
-            <CardTitle className="text-base font-bold text-white flex items-center gap-2">
-              <Code className="h-5 w-5 text-slate-400" />
-              Your Submitted Code ({interview.language})
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <pre className="rounded-2xl bg-slate-900/90 p-5 text-xs sm:text-sm font-mono text-slate-200 overflow-x-auto max-h-[350px] leading-relaxed border border-slate-800/80">
-              {interview.currentCode}
-            </pre>
-          </CardContent>
-        </Card>
-
-        {/* Optimal Solution Snippet */}
-        <Card className="border-slate-800 bg-slate-950 shadow-xl">
-          <CardHeader className="pb-3">
-            <CardTitle className="text-base font-bold text-white flex items-center gap-2">
-              <Sparkles className="h-5 w-5 text-emerald-400" />
-              Optimal Reference Solution
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <pre className="rounded-2xl bg-slate-900/90 p-5 text-xs sm:text-sm font-mono text-emerald-300 overflow-x-auto max-h-[350px] leading-relaxed border border-slate-800/80">
-              {evaluation.optimalSolutionSnippet || "// Optimal pattern reference is based on standard library benchmarks"}
-            </pre>
-          </CardContent>
-        </Card>
+          {/* Reference Optimal Solution */}
+          <Card className="border-slate-800/80 bg-slate-950 p-2 shadow-lg">
+            <CardHeader className="pb-2">
+              <div className="flex items-center justify-between">
+                <span className="text-xs sm:text-sm font-bold text-emerald-400 flex items-center gap-1.5">
+                  <Sparkles className="h-4 w-4" /> Optimal Reference Solution
+                </span>
+                <span className="text-xs font-mono text-slate-400 uppercase">{interview.language}</span>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <pre className="rounded-xl border border-slate-800 bg-slate-900/90 p-4 font-mono text-xs text-slate-200 overflow-x-auto leading-relaxed max-h-[400px]">
+                {problem?.starterCode?.[interview.language] || "// Reference solution"}
+              </pre>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </div>
   );

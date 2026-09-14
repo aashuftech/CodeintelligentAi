@@ -116,7 +116,7 @@ export default function TermsOfServicePage() {
         <Card className="border-slate-800 bg-slate-900/60 p-2 shadow-xl">
           <CardHeader className="pb-3">
             <CardTitle className="text-lg font-bold flex items-center gap-2.5 text-white">
-              <Scale className="h-5 w-5 text-purple-400" />
+              <Scale className="h-5 w-5 text-indigo-400" />
               5. Modifications & Governing Law
             </CardTitle>
           </CardHeader>

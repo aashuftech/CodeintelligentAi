@@ -117,7 +117,7 @@ export default function PrivacyPolicyPage() {
         <Card className="border-slate-800 bg-slate-900/60 p-2 shadow-xl">
           <CardHeader className="pb-3">
             <CardTitle className="text-lg font-bold flex items-center gap-2.5 text-white">
-              <Lock className="h-5 w-5 text-purple-400" />
+              <Lock className="h-5 w-5 text-indigo-400" />
               4. Data Retention & Your Rights
             </CardTitle>
           </CardHeader>
