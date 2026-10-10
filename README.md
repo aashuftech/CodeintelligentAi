@@ -11,7 +11,7 @@ A production-grade, enterprise-ready **AI Coding Interview Platform** engineered
 
 ---
 
-## 🌟 Key Architecture & Capabilities
+## Key Architecture & Capabilities
 
 ```mermaid
 graph TD
@@ -35,7 +35,7 @@ graph TD
 
 ---
 
-## 🚀 Features Matrix
+## Features Matrix
 
 ### 1. Authentication & Role-Based Access (RBAC)
 - **Candidate & Admin Roles**: Separate access permissions for taking interviews vs. administering problem banks.
@@ -83,7 +83,7 @@ graph TD
 
 ---
 
-## 🛠️ Project Structure
+## Project Structure
 
 ```
 ai-coding-interview-platform/
@@ -129,7 +129,7 @@ ai-coding-interview-platform/
 
 ---
 
-## ⚙️ Getting Started
+## Getting Started
 
 ### Prerequisites
 - **Node.js**: v20+ or v22 LTS
@@ -172,7 +172,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
-## 🧪 Testing
+## Testing
 
 Run the automated test suite covering code sandboxes, timeouts, JWT authentication, and AI evaluation rubrics:
 ```bash
@@ -181,7 +181,7 @@ npm test
 
 ---
 
-## 🐳 Docker Deployment
+## Docker Deployment
 
 To launch the full production stack (Next.js App + MongoDB + Redis) in Docker:
 ```bash
@@ -191,7 +191,7 @@ Access the application at `http://localhost:3000`.
 
 ---
 
-## 🔒 Security Best Practices
+## Security Best Practices
 - **Never Executes on App Thread**: User-submitted code runs strictly in isolated sub-sandboxes with enforced execution timeouts and memory ceilings.
 - **Zero API Key Leakage**: AI credentials and database URIs remain strictly server-side.
 - **HTTP-Only Cookies**: JWT authentication tokens are protected from cross-site scripting (XSS).
@@ -199,5 +199,5 @@ Access the application at `http://localhost:3000`.
 
 ---
 
-## 📄 License
+## License
 MIT License. Built for real-world technical interviewing preparation.
