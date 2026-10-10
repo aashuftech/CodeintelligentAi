@@ -6,6 +6,7 @@
 [![MongoDB](https://img.shields.io/badge/MongoDB-Atlas%20%2F%20Mongoose-47A248?style=for-the-badge&logo=mongodb)](https://www.mongodb.com/)
 [![Gemini](https://img.shields.io/badge/AI-Gemini%203.7%20Flash-orange?style=for-the-badge&logo=google)](https://ai.google.dev/)
 [![Docker](https://img.shields.io/badge/Docker-Sandboxed%20Execution-2496ED?style=for-the-badge&logo=docker)](https://www.docker.com/)
+[![Docker](https://img.shields.io/badge/JavaScript%20Execution-2496ED?style=for-the-badge&logo=javascript)](https://www.javascript.com/)
 
 A production-grade, enterprise-ready **AI Coding Interview Platform** engineered with Next.js (App Router), Monaco Editor, MongoDB Atlas, Mongoose, and a multi-language sandboxed code execution engine paired with conversational AI evaluation.
 
